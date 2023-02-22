@@ -1,0 +1,9 @@
+Bunch of code that use nodemcu board.
+
+https://www.nodemcu.com
+
+Driver for com port https://sparks.gogo.co.nz/ch340.html
+Driver for Arduino IDE https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/
+
+On Sketch IDE use ESP8266 12E and 9600 upload speed.
+
