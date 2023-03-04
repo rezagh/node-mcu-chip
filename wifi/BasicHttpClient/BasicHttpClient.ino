@@ -1,21 +1,15 @@
-/**
-  a simple web server
-*/
-
 #include <Arduino.h>
-
 #include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
-
 #include <ESP8266HTTPClient.h>
 
-#include <WiFiClient.h>
+
 
 ESP8266WiFiMulti WiFiMulti;
 
 void setup() {
 
-  Serial.begin(115200);
+  Serial.begin(9600);
   // Serial.setDebugOutput(true);
 
   Serial.println();
@@ -29,7 +23,7 @@ void setup() {
   }
 
   WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP("", "");
+  WiFiMulti.addAP("Galaxy2", "aghareza123");
 
 }
 
@@ -41,24 +35,26 @@ void loop() {
 
     HTTPClient http;
 
-    Serial.print("[HTTP] begin...\n");
-    if (http.begin(client, "http://192.168.1.7:8080")) {  // HTTP
+    Serial.printf("[HTTP] begin...\n");
+    if (http.begin(client, "https://www.djxmmx.net")) {  // HTTP
 
-
-      Serial.print("[HTTP] GET...\n");
+      Serial.printf("[HTTP] GET...\n");
       // start connection and send HTTP header
       int httpCode = http.GET();
+      Serial.printf("[HTTP] GET... code: %d\n", httpCode);
 
       // httpCode will be negative on error
       if (httpCode > 0) {
         // HTTP header has been send and Server response header has been handled
-        Serial.printf("[HTTP] GET... code: %d\n", httpCode);
+
+          String payload = http.getString();
+          Serial.printf("payload:",payload);
 
         // file found at server
-        if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
-          String payload = http.getString();
-          Serial.println(payload);
-        }
+        //if (httpCode == HTTP_CODE_OK || httpCode == HTTP_CODE_MOVED_PERMANENTLY) {
+        //  String payload = http.getString();
+        //  Serial.printf("payload:",payload);
+        //}
       } else {
         Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
       }
